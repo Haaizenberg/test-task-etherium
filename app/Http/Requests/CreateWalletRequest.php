@@ -5,15 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CreateWalletResponse extends FormRequest
+class CreateWalletRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        // TODO: Auth using apiKey?
-        return false;
+        return true;
     }
 
     /**

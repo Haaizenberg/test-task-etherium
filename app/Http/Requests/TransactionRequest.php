@@ -3,15 +3,16 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class TransactionResponse extends FormRequest
+class TransactionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,10 @@ class TransactionResponse extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'from' => [ 'required', 'string', 'max:255', 'exists:App\Models\Wallet,public_key' ],
+            'to' => [ 'required', 'string', 'max:255', 'exists:App\Models\Wallet,public_key' ],
+            'currency' => [ 'required', 'alpha', Rule::in(['ETH']) ],
+            'amount' => [ 'required', 'numeric', 'gt:0' ],
         ];
     }
 }
